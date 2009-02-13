@@ -1,0 +1,6 @@
+Revision history for Perl extension Text::Markdown::XS.
+
+0.01  Thu Feb 12 22:49:17 2009
+	- original version; created by h2xs 1.23 with options
+		-A -n Text::Markdown::XS
+
