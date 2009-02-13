@@ -1,6 +1,6 @@
 package Text::Markdown::XS;
 
-use 5.010000;
+use 5.008000;
 use strict;
 use warnings;
 
