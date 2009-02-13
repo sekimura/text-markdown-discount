@@ -31,7 +31,11 @@ _markdown(text)
             exit(1);
         }
         mkd_compile(doc, flags);
-        szret = mkd_document(doc, &ret);
+        if ( (szret = mkd_document(doc, &ret)) != EOF ) {;
+            strncat(ret, "\n", 1);
+        }
+        // got double free...
+        //mkd_cleanup(doc);
 
         r = newSVpv(ret, 0);
         RETVAL = r;

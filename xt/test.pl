@@ -8,15 +8,13 @@ use Benchmark;
 use File::Slurp;
 use Text::Diff;
 
-my $text = read_file('index.text');
-warn "XXXX";
+my $text = read_file('xt/index.text');
 my $a = Text::Markdown::XS::_markdown($text);
 my $b = Text::Markdown::markdown($text);
-$a .= "\n";
 
 unless ( $a eq $b ) {
-print diff \$a, \$b; 
-#   die "BOO";
+    print diff \$a, \$b; 
+    #die "BOO";
 }
 my $count = 1000;
 timethese($count, {
@@ -24,10 +22,4 @@ timethese($count, {
     'Text::Markdown' => sub { Text::Markdown::markdown($text) },
 });
 
-
-#warn Text::Markdown::markdown(<<EOF);
-Text::Markdown::XS::_markdown(<<EOF);
-* test
-* Yup, test
-EOF
 
