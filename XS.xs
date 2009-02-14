@@ -7,36 +7,42 @@
 #include <string.h>
 #include <mkdio.h>
 
-MODULE = Text::Markdown::XS		PACKAGE = Text::Markdown::XS		
+MODULE = Text::Markdown::XS		PACKAGE = Text::Markdown::XS	PREFIX = TextMarkdown_
 
 PROTOTYPES: DISABLE
 
 SV *
-_markdown(text)
+TextMarkdown_markdown(text)
         char *text;
     PREINIT:
         SV* r = &PL_sv_undef;
-    CODE:
-        int rc;
-        int flags = 0x0004;/* TODO handle flags */
+        int flags = MKD_NOHEADER|MKD_NOPANTS;
         char *ret;
-        int szret;
+        STRLEN szret;
         MMIOT *doc;
-
+    CODE:
         if ( (doc = mkd_string(text, strlen(text), flags)) == 0 ) {
-            exit(1);
+            croak("failed at mkd_string");
         }
 
-        mkd_compile(doc, flags);
+        if ( !mkd_compile(doc, flags) ) {
+            croak("failed at mkd_compile");
+        }
 
         if ( (szret = mkd_document(doc, &ret)) != EOF ) {;
-            // got segfault (or bus error) with this
-            // ignoreing the last invisible char is better than
-            // aborting the fatal error
-            //strcat(ret, "\n");
+            /* Got segfault (or bus error) with this.
+            /  missing the last invisible char, line feed, is better than
+            /  getting the fatal error
+            */
+            // strcat(ret, "\n");
+        } else {
+            croak("failed at mkd_document");
         }
 
         r = newSVpvn(ret, strlen(ret));
+
+        Safefree(ret);
+        Safefree(doc);
         RETVAL = r;
     OUTPUT:
         RETVAL

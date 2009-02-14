@@ -9,7 +9,7 @@ use File::Slurp;
 use Text::Diff;
 
 my $text = read_file('xt/index.text');
-my $a = Text::Markdown::XS::_markdown($text);
+my $a = Text::Markdown::XS::markdown($text);
 my $b = Text::Markdown::markdown($text);
 
 unless ( $a eq $b ) {
@@ -18,8 +18,8 @@ unless ( $a eq $b ) {
 }
 my $count = 1000;
 timethese($count, {
-    'Text::Markdown::XS' => sub { Text::Markdown::XS::_markdown($text) },
-    'Text::Markdown' => sub { Text::Markdown::markdown($text) },
+    'B_Text::Markdown::XS' => sub { Text::Markdown::XS::markdown($text) },
+    'A_Text::Markdown' => sub { Text::Markdown::markdown($text) },
 });
 
 
