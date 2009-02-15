@@ -17,8 +17,8 @@ TextMarkdown_markdown(text)
     PREINIT:
         SV* r = &PL_sv_undef;
         int flags = MKD_NOHEADER|MKD_NOPANTS;
-        char *ret;
-        STRLEN szret;
+        char *html = NULL;
+        int szhtml;
         MMIOT *doc;
     CODE:
         if ( (doc = mkd_string(text, strlen(text), flags)) == 0 ) {
@@ -26,22 +26,19 @@ TextMarkdown_markdown(text)
         }
 
         if ( !mkd_compile(doc, flags) ) {
+            Safefree(doc);
             croak("failed at mkd_compile");
         }
 
-        if ( (szret = mkd_document(doc, &ret)) != EOF ) {;
-            /* Got segfault (or bus error) with this.
-            /  missing the last invisible char, line feed, is better than
-            /  getting the fatal error
-            */
-            // strcat(ret, "\n");
-        } else {
+        if ( (szhtml = mkd_document(doc, &html)) == EOF ) {;
+            Safefree(doc);
             croak("failed at mkd_document");
         }
 
-        r = newSVpvn(ret, strlen(ret));
+        r = newSVpvn(html, szhtml);
+        sv_catpv(r, "\n");
 
-        Safefree(ret);
+        Safefree(html);
         Safefree(doc);
         RETVAL = r;
     OUTPUT:
