@@ -10,3 +10,7 @@ ext/Makefile.old
 ext/Makefile
 ext/config.*
 ext/configure.*
+ext/*.o
+ext/*.c
+ext/*.h
+ext/*.so
