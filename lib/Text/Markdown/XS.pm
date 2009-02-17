@@ -30,7 +30,27 @@ our $VERSION = '0.01';
 require XSLoader;
 XSLoader::load('Text::Markdown::XS', $VERSION);
 
-# Preloaded methods go here.
+sub new {
+    return bless {}, 'Text::Markdown::XS';
+}
+
+sub markdown {
+    my ($self, $text) = @_;
+
+    # Detect functional mode, and create an instance for this run..
+    unless (ref $self) {
+        if ( $self ne __PACKAGE__ ) {
+            my $ob = __PACKAGE__->new();
+                                # $self is text, $text is options
+            return $ob->markdown($self, $text);
+        }
+        else {
+            croak('Calling ' . $self . '->markdown (as a class method) is not supported.');
+        }
+    }
+    return _markdown($text);
+}
+
 
 1;
 __END__

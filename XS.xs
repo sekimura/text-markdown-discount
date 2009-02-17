@@ -12,7 +12,7 @@ MODULE = Text::Markdown::XS		PACKAGE = Text::Markdown::XS	PREFIX = TextMarkdown_
 PROTOTYPES: DISABLE
 
 SV *
-TextMarkdown_markdown(text)
+TextMarkdown__markdown(text)
         char *text;
     PREINIT:
         SV* r = &PL_sv_undef;
