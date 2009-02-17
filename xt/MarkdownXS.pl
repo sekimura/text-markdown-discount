@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use ExtUtils::testlib;
 
-use Text::Markdown::XS qw(markdown);
+use Text::Markdown::Discount qw(markdown);
 
 =head1 NAME
 
@@ -118,10 +118,10 @@ if ($cli_opts{'help'}) {
 }
 my $m;
 if ($cli_opts{'html4tags'}) {           # Use HTML tag style instead of XHTML
-    $m = Text::Markdown::XS->new(empty_element_suffix => '>');
+    $m = Text::Markdown::Discount->new(empty_element_suffix => '>');
 }
 else {
-    $m = Text::Markdown::XS->new;
+    $m = Text::Markdown::Discount->new;
 }
 
 sub main {
