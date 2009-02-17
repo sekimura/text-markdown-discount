@@ -1,7 +1,12 @@
 Makefile
 Makefile.old
 blib
-XS.bs
-XS.c
-XS.o
+Discount.bs
+Discount.c
+Discount.o
 pm_to_blib
+*.swp
+ext/Makefile.old
+ext/Makefile
+ext/config.*
+ext/configure.*

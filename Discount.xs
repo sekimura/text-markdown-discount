@@ -7,7 +7,7 @@
 #include <string.h>
 #include <mkdio.h>
 
-MODULE = Text::Markdown::XS		PACKAGE = Text::Markdown::XS	PREFIX = TextMarkdown_
+MODULE = Text::Markdown::Discount		PACKAGE = Text::Markdown::Discount	PREFIX = TextMarkdown_
 
 PROTOTYPES: DISABLE
 

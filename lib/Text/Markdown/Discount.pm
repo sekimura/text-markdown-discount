@@ -1,4 +1,4 @@
-package Text::Markdown::XS;
+package Text::Markdown::Discount;
 
 use 5.008000;
 use strict;
@@ -28,10 +28,10 @@ our @EXPORT = qw(
 our $VERSION = '0.01';
 
 require XSLoader;
-XSLoader::load('Text::Markdown::XS', $VERSION);
+XSLoader::load('Text::Markdown::Discount', $VERSION);
 
 sub new {
-    return bless {}, 'Text::Markdown::XS';
+    return bless {}, 'Text::Markdown::Discount';
 }
 
 sub markdown {
@@ -58,16 +58,16 @@ __END__
 
 =head1 NAME
 
-Text::Markdown::XS - Perl extension for blah blah blah
+Text::Markdown::Discount - Perl extension for blah blah blah
 
 =head1 SYNOPSIS
 
-  use Text::Markdown::XS;
+  use Text::Markdown::Discount;
   blah blah blah
 
 =head1 DESCRIPTION
 
-Stub documentation for Text::Markdown::XS, created by h2xs. It looks like the
+Stub documentation for Text::Markdown::Discount, created by h2xs. It looks like the
 author of the extension was negligent enough to leave the stub
 unedited.
 
