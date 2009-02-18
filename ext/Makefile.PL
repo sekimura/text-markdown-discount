@@ -51,5 +51,5 @@ sub MY::dynamic {}
 WriteMakefile(
     NAME => 'libdiscount_markdown',
     INC => '-I.',
-    clean => { FILES => '*.c *.h *.so *.o'},
+    clean => { FILES => 'config.* configure.* libdiscount_markdown.* *.c *.h *.so *.o'},
 );
