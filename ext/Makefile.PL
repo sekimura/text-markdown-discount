@@ -26,7 +26,6 @@ my @h_files = qw(
 );
 
 for my $f (@c_files, @h_files, ('configure.sh', 'configure.inc')) {
-    warn $f;
     my $src = File::Spec->catfile('../discount-1.3.1', $f);
     copy ($src, $f);
 }
@@ -46,11 +45,11 @@ toc(OBJ_EXT): toc.c mkdio.h cstring.h config.h
 MAKE_FRAG
 }
 
+## disable
 sub MY::dynamic {}
 
 WriteMakefile(
     NAME => 'libdiscount_markdown',
     INC => '-I.',
-    INST_BOOT => ' ',
     clean => { FILES => '*.c *.h *.so *.o'},
 );
