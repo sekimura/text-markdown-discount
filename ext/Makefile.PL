@@ -33,9 +33,9 @@ system('sh', 'configure.sh');
 
 sub MY::postamble {
     return <<'MAKE_FRAG';
-libdiscount_markdown.$(DLEXT): $(O_FILES)
-	$(LD) $(LDDLFLAGS) -o libdiscount_markdown.$(DLEXT) $(O_FILES)
-
+libdiscount_markdown$(LIB_EXT): $(O_FILES)
+	$(AR) crv $@ $(O_FILES)
+	$(RANLIB) $@
 markdown$(OBJ_EXT): markdown.c config.h cstring.h markdown.h
 generate$(OBJ_EXT): generate.c config.h cstring.h markdown.h
 dumptree$(OBJ_EXT): dumptree.c cstring.h markdown.h

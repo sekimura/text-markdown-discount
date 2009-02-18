@@ -14,3 +14,4 @@ ext/*.o
 ext/*.c
 ext/*.h
 ext/*.so
+ext/libdiscount_markdown.*

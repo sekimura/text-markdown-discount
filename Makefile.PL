@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 sub MY::postamble {
     return <<'MAKE_FRAG';
 $(MYEXTLIB):
-	(cd ext; make libdiscount_markdown.$(DLEXT))
+	(cd ext; make libdiscount_markdown$(LIB_EXT))
 MAKE_FRAG
 }
 
@@ -19,5 +19,5 @@ WriteMakefile(
        AUTHOR         => 'Masayoshi Sekimura <sekimura@cpan.org>') : ()),
     LIBS               => '-Lext',
     INC               => '-I. -Iext',
-    MYEXTLIB          => 'ext/libdiscount_markdown.$(DLEXT)',
+    MYEXTLIB          => 'ext/libdiscount_markdown$(LIB_EXT)',
 );
