@@ -1,0 +1,11 @@
+.gitignore
+.git/*
+blib/*
+ext/*.c
+ext/*.h
+ext/config.*
+ext/configure.*
+ext/Makefile
+ext/Makefile.old
+Makefile
+Makefile.old
