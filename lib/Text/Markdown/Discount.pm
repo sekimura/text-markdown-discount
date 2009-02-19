@@ -58,41 +58,33 @@ __END__
 
 =head1 NAME
 
-Text::Markdown::Discount - Perl extension for blah blah blah
+Text::Markdown::Discount - Perl extension interface for C<Discount>, an 
+implementation of John Gruber's C<makedown> L<http://daringfireball.net/projects/markdown/> in C developed by David Loren Parsons L<http://www.pell.portland.or.us/~orc>.
 
 =head1 SYNOPSIS
 
   use Text::Markdown::Discount;
-  blah blah blah
+  my $html = markdown($text)
 
 =head1 DESCRIPTION
 
-Stub documentation for Text::Markdown::Discount, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+Given that the performance of Discount, Text::Markdown::Discount processes
+markdown formatted text quickly and passes the Markdown test suite at
+<http://daringfireball.net/projects/downloads/MarkdownTest_1.0.zip>
 
-Blah blah blah.
+the interface of <markdown()> is not compatible with Text::Markdown::markdown() 
 
 =head2 EXPORT
 
-None by default.
-
-
+I<markdown> is exported by default.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+L<Text::Markdown>, http://www.pell.portland.or.us/~orc/Code/markdown/
 
 =head1 AUTHOR
 
-Masayoshi Sekimura, E<lt>sekimura@E<gt>
+Masayoshi Sekimura, E<lt>sekimura@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -102,5 +94,7 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
 
+This product includes software developed by
+David Loren Parsons <http://www.pell.portland.or.us/~orc>
 
 =cut
