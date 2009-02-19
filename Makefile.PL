@@ -2,12 +2,19 @@ use strict;
 use warnings;
 
 use ExtUtils::MakeMaker;
+use File::Spec;
+
+my $extdir = 'discount-1.3.1';
+my $myextlib = File::Spec->catfile($extdir, 'libmarkdown.a');
+my $clean_files = join (" ",
+                  map{ File::Spec->catfile($extdir, $_) }
+                  qw ( markdwon mkd2html makepage theme libmarkdown.a ));
 
 sub MY::postamble {
-    return <<'MAKE_FRAG';
+    return sprintf('
 $(MYEXTLIB):
-	(cd ext; make libdiscount_markdown$(LIB_EXT))
-MAKE_FRAG
+	%s
+', qq{( cd $extdir; sh configure.sh; make )\n});
 }
 
 WriteMakefile(
@@ -17,7 +24,8 @@ WriteMakefile(
     ($] >= 5.005 ?
       (ABSTRACT_FROM  => 'lib/Text/Markdown/Discount.pm',
        AUTHOR         => 'Masayoshi Sekimura <sekimura@cpan.org>') : ()),
-    LIBS               => '-Lext',
-    INC               => '-I. -Iext',
-    MYEXTLIB          => 'ext/libdiscount_markdown$(LIB_EXT)',
+    LIBS               => '-L' . $extdir,
+    INC               => '-I. -I' . $extdir,
+    MYEXTLIB          => $myextlib,
+    clean             => { FILES => $clean_files },
 );

@@ -6,12 +6,4 @@ Discount.c
 Discount.o
 pm_to_blib
 *.swp
-ext/Makefile.old
-ext/Makefile
-ext/config.*
-ext/configure.*
-ext/*.o
-ext/*.c
-ext/*.h
-ext/*.so
-ext/libdiscount_markdown.*
+discount-1.3.1
