@@ -8,7 +8,33 @@ my $extdir = 'discount-1.3.4';
 my $myextlib = File::Spec->catfile($extdir, 'libmarkdown.a');
 my $clean_files = join (" ",
                   map{ File::Spec->catfile($extdir, $_) }
-                  qw ( markdwon mkd2html makepage theme libmarkdown.a ));
+                  qw ( 
+                  markdwon mkd2html makepage theme libmarkdown.a
+                  Csio.o
+                  config.cmd
+                  config.h
+                  config.log
+                  config.mak
+                  config.md
+                  config.sub
+                  docheader.o
+                  dumptree.o
+                  generate.o
+                  main.o
+                  markdown
+                  markdown.1
+                  markdown.o
+                  mkd2html.o
+                  mkdio.o
+                  resource.o
+                  theme.o
+                  toc.o
+                  version.c
+                  version.o
+                  xmlpage.o
+                  ));
+
+
 
 sub MY::postamble {
     return sprintf('
