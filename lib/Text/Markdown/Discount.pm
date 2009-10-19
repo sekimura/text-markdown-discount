@@ -59,7 +59,7 @@ __END__
 =head1 NAME
 
 Text::Markdown::Discount - Perl extension interface for C<Discount>, an 
-implementation of John Gruber's C<makedown> L<http://daringfireball.net/projects/markdown/> in C developed by David Loren Parsons L<http://www.pell.portland.or.us/~orc>.
+implementation of John Gruber's C<markdown> L<http://daringfireball.net/projects/markdown/> in C developed by David Loren Parsons L<http://www.pell.portland.or.us/~orc>.
 
 =head1 SYNOPSIS
 
