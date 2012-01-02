@@ -63,9 +63,7 @@ discount-2.1.2/version.c
 discount-2.1.2/version.c.in
 discount-2.1.2/xml.c
 discount-2.1.2/xmlpage.c
-Discount.bs
 Discount.c
-Discount.o
 Discount.xs
 INSTALL.Discount
 lib/Text/Markdown/Discount.pm
@@ -74,6 +72,7 @@ MANIFEST
 ppport.h
 README
 t/00.load.t
+t/10.empty_or_all_newlines_input.t
 xt/index.text
 xt/MarkdownTest_1.0.3.t
 xt/MarkdownTest_1.0.3/MarkdownTest.pl

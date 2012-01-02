@@ -22,7 +22,6 @@ my $clean_files = join (" ",
                   generate.o
                   main.o
                   markdown
-                  markdown.1
                   markdown.o
                   mkd2html.o
                   mkdio.o
