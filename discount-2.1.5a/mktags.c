@@ -41,7 +41,6 @@ typedef int (*stfu)(const void*,const void*);
 
 /* load in the standard collection of html tags that markdown supports
  */
-int
 main()
 {
     int i;
@@ -76,7 +75,6 @@ main()
     KW("WBR");
     KW("XMP");
     SC("HR");
-    SC("BR");
     KW("IFRAME");
     KW("MAP");
 

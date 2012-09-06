@@ -4,7 +4,7 @@ use warnings;
 use ExtUtils::MakeMaker;
 use File::Spec;
 
-my $extdir = 'discount-2.1.2';
+my $extdir = 'discount-2.1.5a';
 my $myextlib = File::Spec->catfile($extdir, 'libmarkdown.a');
 my $clean_files = join (" ",
                   map{ File::Spec->catfile($extdir, $_) }
