@@ -1,5 +1,9 @@
 Revision history for Perl extension Text::Markdown::XS.
 
+0.03  Thu Sep 13 11:16:38 PDT 2012
+	- upgraded discount to 2.1.5a (RT:79192)
+    - Thanks for the pull request up by https://github.com/hitode909
+
 0.02  Sun Jan  1 22:13:42 PST 2012
 	- upgraded discount to 2.1.2 (RT:66012)
 	- use "CC='cc -fPIC'" as running configure.sh on discount workdir
