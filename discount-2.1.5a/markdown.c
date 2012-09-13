@@ -188,7 +188,8 @@ checkline(Line *l)
     int eol, i;
     int dashes = 0, spaces = 0,
 	equals = 0, underscores = 0,
-	stars = 0, tildes = 0;
+	stars = 0, tildes = 0,
+	backticks = 0;
 
     l->flags |= CHECKED;
     l->kind = chk_text;
@@ -210,12 +211,15 @@ checkline(Line *l)
 	case '=':  equals = 1; break;
 	case '_':  underscores = 1; break;
 	case '*':  stars = 1; break;
+#if WITH_FENCED_CODE
 	case '~':  tildes = 1; break;
+	case '`':  backticks = 1; break;
+#endif
 	default:   return;
 	}
     }
 
-    if ( dashes + equals + underscores + stars + tildes > 1 )
+    if ( dashes + equals + underscores + stars + tildes + backticks > 1 )
 	return;
 
     if ( spaces ) {
@@ -226,8 +230,11 @@ checkline(Line *l)
 
     if ( stars || underscores ) { l->kind = chk_hr; }
     else if ( dashes ) { l->kind = chk_dash; }
-    else if ( tildes ) { l->kind = chk_tilde; }
     else if ( equals ) { l->kind = chk_equal; }
+#if WITH_FENCED_CODE
+    else if ( tildes ) { l->kind = chk_tilde; }
+    else if ( backticks ) { l->kind = chk_backtick; }
+#endif
 }
 
 
@@ -449,7 +456,7 @@ is_extra_dt(Line *t, int *clip)
 {
 #if USE_EXTRA_DL
     
-    if ( t && t->next && T(t->text)[0] != '='
+    if ( t && t->next && S(t->text) && T(t->text)[0] != '='
 		      && T(t->text)[S(t->text)-1] != '=') {
 	Line *x;
     
@@ -599,12 +606,15 @@ codeblock(Paragraph *p)
 
 #ifdef WITH_FENCED_CODE
 static int
-iscodefence(Line *r, int size)
+iscodefence(Line *r, int size, line_type kind)
 {
     if ( !(r->flags & CHECKED) )
 	checkline(r);
 
-    return (r->kind == chk_tilde) && (r->count >= size);
+    if ( kind )
+	return (r->kind == kind) && (r->count >= size);
+    else
+	return (r->kind == chk_tilde || r->kind == chk_backtick) && (r->count >= size);
 }
 
 static Paragraph *
@@ -617,14 +627,14 @@ fencedcodeblock(ParagraphRoot *d, Line **ptr)
     
     /* don't allow zero-length code fences
      */
-    if ( (first->next == 0) || iscodefence(first->next, first->count) )
+    if ( (first->next == 0) || iscodefence(first->next, first->count, 0) )
 	return 0;
 
     /* find the closing fence, discard the fences,
      * return a Paragraph with the contents
      */
     for ( r = first; r && r->next; r = r->next )
-	if ( iscodefence(r->next, first->count) ) {
+	if ( iscodefence(r->next, first->count, first->kind) ) {
 	    (*ptr) = r->next->next;
 	    ret = Pp(d, first->next, CODE);
 	    ___mkd_freeLine(first);
@@ -872,7 +882,7 @@ definition_block(Paragraph *top, int clip, MMIOT *f, int kind)
 	if ( (text = skipempty(q->next)) == 0 )
 	    break;
 
-	if (( para = (text != q->next) ))
+	if ( para = (text != q->next) )
 	    ___mkd_freeLineRange(q, text);
 	
 	q->next = 0; 
@@ -895,7 +905,7 @@ definition_block(Paragraph *top, int clip, MMIOT *f, int kind)
 	if ( (q = skipempty(text)) == 0 )
 	    break;
 
-	if (( para = (q != text) )) {
+	if ( para = (q != text) ) {
 	    Line anchor;
 
 	    anchor.next = text;
@@ -1085,6 +1095,7 @@ compile_document(Line *ptr, MMIOT *f)
 
     while ( ptr ) {
 	if ( !(f->flags & MKD_NOHTML) && (tag = isopentag(ptr)) ) {
+	    int blocktype;
 	    /* If we encounter a html/style block, compile and save all
 	     * of the cached source BEFORE processing the html/style.
 	     */
@@ -1094,7 +1105,12 @@ compile_document(Line *ptr, MMIOT *f)
 		p->down = compile(T(source), 1, f);
 		T(source) = E(source) = 0;
 	    }
-	    p = Pp(&d, ptr, strcmp(tag->id, "STYLE") == 0 ? STYLE : HTML);
+	    
+	    if ( f->flags & MKD_NOSTYLE )
+		blocktype = HTML;
+	    else
+		blocktype = strcmp(tag->id, "STYLE") == 0 ? STYLE : HTML;
+	    p = Pp(&d, ptr, blocktype);
 	    ptr = htmlblock(p, tag, &unclosed);
 	    if ( unclosed ) {
 		p->typ = SOURCE;
@@ -1212,7 +1228,7 @@ compile(Line *ptr, int toplevel, MMIOT *f)
 	    ptr = codeblock(p);
 	}
 #if WITH_FENCED_CODE
-	else if ( iscodefence(ptr,3) && (p=fencedcodeblock(&d, &ptr)) )
+	else if ( iscodefence(ptr,3,0) && (p=fencedcodeblock(&d, &ptr)) )
 	    /* yay, it's already done */ ;
 #endif
 	else if ( ishr(ptr) ) {
@@ -1221,7 +1237,7 @@ compile(Line *ptr, int toplevel, MMIOT *f)
 	    ptr = ptr->next;
 	    ___mkd_freeLine(r);
 	}
-	else if (( list_class = islist(ptr, &indent, f->flags, &list_type) )) {
+	else if ( list_class = islist(ptr, &indent, f->flags, &list_type) ) {
 	    if ( list_class == DL ) {
 		p = Pp(&d, ptr, DL);
 		ptr = definition_block(p, indent, f, list_type);
