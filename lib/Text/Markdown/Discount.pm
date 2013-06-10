@@ -35,20 +35,23 @@ sub new {
 }
 
 sub markdown {
-    my ($self, $text) = @_;
+    my ($self, $text, $flags) = @_;
 
     # Detect functional mode, and create an instance for this run..
     unless (ref $self) {
         if ( $self ne __PACKAGE__ ) {
             my $ob = __PACKAGE__->new();
                                 # $self is text, $text is options
-            return $ob->markdown($self, $text);
+            return $ob->markdown($self, $text, $flags);
         }
         else {
             croak('Calling ' . $self . '->markdown (as a class method) is not supported.');
         }
     }
-    return _markdown($text);
+    if (not defined $flags) {
+        $flags = MKD_NOHEADER()|MKD_NOPANTS();
+    }
+    return _markdown($text, $flags);
 }
 
 
