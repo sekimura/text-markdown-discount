@@ -48,7 +48,7 @@ sub markdown {
             croak('Calling ' . $self . '->markdown (as a class method) is not supported.');
         }
     }
-    return _markdown($text);
+    return _markdown($text, MKD_NOHEADER()|MKD_NOPANTS());
 }
 
 
