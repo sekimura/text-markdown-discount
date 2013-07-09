@@ -37,10 +37,12 @@ BOOT:
     newCONSTSUB(stash, "MKD_EXTRA_FOOTNOTE", newSViv(MKD_EXTRA_FOOTNOTE));
 
 SV *
-TextMarkdown__markdown(text, flags)
-        char *text;
+TextMarkdown__markdown(sv_str, flags)
+        SV *sv_str
         int flags;
     PREINIT:
+        bool is_utf8 = SvUTF8(sv_str);
+        char *text = SvPV_nolen(sv_str);
         SV* r = &PL_sv_undef;
         char *html = NULL;
         int szhtml;
@@ -62,6 +64,9 @@ TextMarkdown__markdown(text, flags)
 
         r = newSVpvn(html, szhtml);
         sv_catpv(r, "\n");
+        if (is_utf8) {
+            sv_utf8_decode(r);
+        }
 
         mkd_cleanup(doc);
         RETVAL = r;
