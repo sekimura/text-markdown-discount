@@ -1,8 +1,13 @@
 Revision history for Perl extension Text::Markdown::XS.
 
+0.04 Tue Jul  9 14:40:27 PDT 2013
+	- Support MKD_* flags (by @tokuhirom)
+	- markdown() returns UTF-8 encoded string (by @Songmu)
+	- upgraded Discount to 2.1.6 (by @Songmu)
+
 0.03  Thu Sep 13 11:16:38 PDT 2012
 	- upgraded discount to 2.1.5a (RT:79192)
-    - Thanks for the pull request up by https://github.com/hitode909
+	- Thanks for the pull request up by https://github.com/hitode909
 
 0.02  Sun Jan  1 22:13:42 PST 2012
 	- upgraded discount to 2.1.2 (RT:66012)
