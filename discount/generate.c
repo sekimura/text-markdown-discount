@@ -73,7 +73,7 @@ isthisspace(MMIOT *f, int i)
 {
     int c = peek(f, i);
 
-    return isspace(c) || (c == EOF);
+    return isspace(c) || (c < ' ');
 }
 
 
@@ -1335,7 +1335,16 @@ text(MMIOT *f)
 	case '\\':  switch ( c = pull(f) ) {
 		    case '&':   Qstring("&amp;", f);
 				break;
-		    case '<':   Qstring("&lt;", f);
+		    case '<':   c = peek(f,1);
+				if ( (c == EOF) || isspace(c) )
+				    Qstring("&lt;", f);
+				else {
+				    /* Markdown.pl does not escape <[nonwhite]
+				     * sequences */
+				    Qchar('\\', f);
+				    shift(f, -1);
+				}
+				
 				break;
 		    case '^':   if ( f->flags & (MKD_STRICT|MKD_NOSUPERSCRIPT) ) {
 				    Qchar('\\', f);
@@ -1424,8 +1433,9 @@ printheader(Paragraph *pp, MMIOT *f)
 
 enum e_alignments { a_NONE, a_CENTER, a_LEFT, a_RIGHT };
 
-static char* alignments[] = { "", " align=\"center\"", " align=\"left\"",
-				  " align=\"right\"" };
+static char* alignments[] = { "", " style=\"text-align:center;\"",
+				  " style=\"text-align:left;\"",
+				  " style=\"text-align:right;\"" };
 
 typedef STRING(int) Istring;
 
