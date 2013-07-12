@@ -61,8 +61,7 @@ __END__
 
 =head1 NAME
 
-Text::Markdown::Discount - Perl extension interface for C<Discount>, an 
-implementation of John Gruber's C<markdown> L<http://daringfireball.net/projects/markdown/> in C developed by David Loren Parsons L<http://www.pell.portland.or.us/~orc>.
+Text::Markdown::Discount - fast function for converting markdown to HTML (requires C compiler)
 
 =head1 SYNOPSIS
 
@@ -71,11 +70,18 @@ implementation of John Gruber's C<markdown> L<http://daringfireball.net/projects
 
 =head1 DESCRIPTION
 
+Text::Markdown::Discount is a perl interface to the C<Discount> library,
+a C implementation of John Gruber's C<markdown>.
+
+It is the fastest of the
+Perl modules available for converting markdown: see the list in L<"SEE ALSO">.
+It passes Gruber's Markdown testsuite.
+
 Given that the performance of Discount, Text::Markdown::Discount processes
 markdown formatted text quickly and passes the Markdown test suite at
-<http://daringfireball.net/projects/downloads/MarkdownTest_1.0.zip>
 
-the interface of <markdown()> is not compatible with Text::Markdown::markdown() 
+The interface of the C<markdown()> function in this module
+is not compatible with the C<markdown()> function in L<Text::Markdown>.
 
 =head2 EXPORT
 
@@ -83,7 +89,55 @@ I<markdown> is exported by default.
 
 =head1 SEE ALSO
 
-L<Text::Markdown>, http://www.pell.portland.or.us/~orc/Code/markdown/
+There are other modules on CPAN for converting Markdown:
+
+=over 4
+
+=item *
+
+L<Text::Markdown> is a pure-perl markdown converter.
+
+=item *
+
+L<Markdent> is a toolkit for parsing markdown,
+which can also be used to convert markdown to HTML.
+
+=item *
+
+L<Text::Markup> is a converter than can handle a number of input formats, including markdown.
+
+=item *
+
+L<Text::MultiMarkdown> converts MultiMarkdown (a superset of the original markdown format)
+to HTML.
+
+=back
+
+Additional markdown resources:
+
+=over 4
+
+=item *
+
+L<Discount|http://www.pell.portland.or.us/~orc/Code/markdown/> -
+David Loren Parsons's library for converting markdown, written in C.
+
+=item *
+
+L<Markdown definition|http://daringfireball.net/projects/markdown/> -
+John Gruber's original definition of the markdown format.
+
+=item *
+
+L<Markdown testsuite|http://daringfireball.net/projects/downloads/MarkdownTest_1.0.zip> -
+John Gruber's testsuite for markdown.
+
+=item *
+
+L<Markdown modules|http://neilb.org/reviews/markdown.html> - a review
+of all Perl modules for handling markdown, written by Neil Bowers.
+
+=back
 
 =head1 AUTHOR
 
