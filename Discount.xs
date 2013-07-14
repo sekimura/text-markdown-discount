@@ -41,6 +41,7 @@ TextMarkdown__markdown(sv_str, flags)
         SV *sv_str
         int flags;
     PREINIT:
+        bool is_utf8 = SvUTF8(sv_str) != 0; // SvUTF8 doesn't typecast consistently to bool across various archs
         char *text = SvPV_nolen(sv_str);
         SV* r = &PL_sv_undef;
         char *html = NULL;
@@ -63,7 +64,7 @@ TextMarkdown__markdown(sv_str, flags)
 
         r = newSVpvn(html, szhtml);
         sv_catpv(r, "\n");
-        if (SvUTF8(sv_str)) {
+        if (is_utf8) {
             sv_utf8_decode(r);
         }
 
