@@ -1,5 +1,9 @@
 Revision history for Perl extension Text::Markdown::XS.
 
+0.06 Sat Jul 13 20:35:10 PDT 2013
+	- Documentation improvements by @nailbowers
+	- fixed an issue with is_utf8 boolean casting behavior
+
 0.05 Tue Jul  9 14:40:27 PDT 2013
 	- Support MKD_* flags (by @tokuhirom)
 	- markdown() returns UTF-8 encoded string (by @Songmu)
