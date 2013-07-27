@@ -94,7 +94,6 @@ INSTALL.Discount
 lib/Text/Markdown/Discount.pm
 Makefile.PL
 MANIFEST			This list of files
-MYMETA.yml
 ppport.h
 README
 t/00.load.t
