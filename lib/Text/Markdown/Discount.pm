@@ -31,7 +31,8 @@ require XSLoader;
 XSLoader::load('Text::Markdown::Discount', $VERSION);
 
 sub new {
-    return bless {}, 'Text::Markdown::Discount';
+    my ($class, %args) = @_;
+    $class->_new($args{html5});
 }
 
 sub markdown {
@@ -51,7 +52,7 @@ sub markdown {
     if (not defined $flags) {
         $flags = MKD_NOHEADER()|MKD_NOPANTS();
     }
-    return _markdown($text, $flags);
+    return $self->_markdown($text, $flags);
 }
 
 
@@ -86,6 +87,24 @@ is not compatible with the C<markdown()> function in L<Text::Markdown>.
 =head2 EXPORT
 
 I<markdown> is exported by default.
+
+=head2 CONSTRUCTOR
+
+OO interface is also available as follows.
+
+    my $md = Text::Markdown::Discount->new(%opt);
+    my $html = $md->markdown($text);
+
+C<new> is constructor and C<%opt> is constructor option.
+keys of C<%opt> is as follows.
+
+=over
+
+=item html5
+
+Enabling html5 elements handling.
+
+=back
 
 =head1 SEE ALSO
 
