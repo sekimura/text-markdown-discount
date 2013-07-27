@@ -13,6 +13,8 @@
 \.gz$
 \.cvsignore
 \.shipit
+\.gitignore
+MYMETA\..*
 ^discount/Csio.o
 ^discount/basename.o
 ^discount/blocktags
