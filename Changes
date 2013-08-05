@@ -1,5 +1,8 @@
 Revision history for Perl extension Text::Markdown::XS.
 
+0.09 Mon Aug  5 10:08:05 PDT 2013
+	-  fixed #14 "some files are missing in 0.08"
+
 0.08 Sun Aug  4 23:50:18 PDT 2013
 	- Reverted html5 tags support
 
