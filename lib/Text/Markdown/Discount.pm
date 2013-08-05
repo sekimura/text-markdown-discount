@@ -87,6 +87,20 @@ is not compatible with the C<markdown()> function in L<Text::Markdown>.
 
 I<markdown> is exported by default.
 
+
+=head2 FUNCTION
+
+=over
+
+=item C<Text::Markdown::Discount::with_html5_tags()>
+
+Enabling html5 elements handling.
+
+Once calling it, following B<ALL> C<< Text::Markdown::Discount::markdown() >>
+calls are affected with html5 enabled in same Perl process and there is no way to disable it.
+
+=back
+
 =head1 SEE ALSO
 
 There are other modules on CPAN for converting Markdown:

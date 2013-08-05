@@ -72,3 +72,8 @@ TextMarkdown__markdown(sv_str, flags)
         RETVAL = r;
     OUTPUT:
         RETVAL
+
+void
+TextMarkdown_with_html5_tags()
+    CODE:
+        mkd_with_html5_tags();
