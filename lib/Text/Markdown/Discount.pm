@@ -31,8 +31,7 @@ require XSLoader;
 XSLoader::load('Text::Markdown::Discount', $VERSION);
 
 sub new {
-    my $class = shift;
-    my %args = @_ == 1 ? %{$_[0]} : @_;
+    my ($class, %args) = @_;
     $class->_new($args{html5});
 }
 
