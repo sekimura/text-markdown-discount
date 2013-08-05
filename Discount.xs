@@ -7,6 +7,12 @@
 #include <string.h>
 #include <mkdio.h>
 
+typedef struct tmdd_obj {
+    bool html5;
+} tmdd_obj;
+
+typedef tmdd_obj *Text__Markdown__Discount;
+
 MODULE = Text::Markdown::Discount		PACKAGE = Text::Markdown::Discount	PREFIX = TextMarkdown_
 
 PROTOTYPES: DISABLE
@@ -37,7 +43,8 @@ BOOT:
     newCONSTSUB(stash, "MKD_EXTRA_FOOTNOTE", newSViv(MKD_EXTRA_FOOTNOTE));
 
 SV *
-TextMarkdown__markdown(sv_str, flags)
+TextMarkdown__markdown(self, sv_str, flags)
+        Text::Markdown::Discount self
         SV *sv_str
         int flags;
     PREINIT:
@@ -70,5 +77,21 @@ TextMarkdown__markdown(sv_str, flags)
 
         mkd_cleanup(doc);
         RETVAL = r;
+    OUTPUT:
+        RETVAL
+
+Text::Markdown::Discount
+TextMarkdown__new(clazz, html5)
+    char *clazz
+    bool html5
+    PREINIT:
+        Text__Markdown__Discount self;
+    CODE:
+        self = calloc(1, sizeof(struct tmdd_obj));
+        if (html5) {
+            mkd_with_html5_tags();
+        }
+        self->html5 = html5;
+        RETVAL = self;
     OUTPUT:
         RETVAL
