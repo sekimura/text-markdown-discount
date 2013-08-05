@@ -31,8 +31,7 @@ require XSLoader;
 XSLoader::load('Text::Markdown::Discount', $VERSION);
 
 sub new {
-    my ($class, %args) = @_;
-    $class->_new($args{html5});
+    return bless {}, 'Text::Markdown::Discount';
 }
 
 sub markdown {
@@ -52,7 +51,7 @@ sub markdown {
     if (not defined $flags) {
         $flags = MKD_NOHEADER()|MKD_NOPANTS();
     }
-    return $self->_markdown($text, $flags);
+    return _markdown($text, $flags);
 }
 
 
@@ -87,28 +86,6 @@ is not compatible with the C<markdown()> function in L<Text::Markdown>.
 =head2 EXPORT
 
 I<markdown> is exported by default.
-
-=head2 CONSTRUCTOR
-
-OO interface is also available as follows.
-
-    my $md = Text::Markdown::Discount->new(%opt);
-    my $html = $md->markdown($text);
-
-C<new> is constructor and C<%opt> is constructor option.
-keys of C<%opt> is as follows.
-
-=over
-
-=item html5
-
-Enabling html5 elements handling.
-
-B<CAUTION>: Once generated html5 enabled object, following B<ALL> C<< Text::Markdown::Discount::markdown() >>
-calls are affected and html5 enabled in same Perl process and there is no way to disable it.
-It's not only limited the object which html5 flags on.
-
-=back
 
 =head1 SEE ALSO
 
