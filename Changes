@@ -1,5 +1,9 @@
 Revision history for Perl extension Text::Markdown::XS.
 
+0.07 Sun Aug  4 18:44:48 PDT 2013
+	- Removed MYMETA (by @Songmu)
+	- Added html5 tags support (by @Songmu)
+
 0.06 Sat Jul 13 20:35:10 PDT 2013
 	- Documentation improvements by @nailbowers
 	- fixed an issue with is_utf8 boolean casting behavior
