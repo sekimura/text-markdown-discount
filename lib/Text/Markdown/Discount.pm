@@ -33,7 +33,7 @@ XSLoader::load('Text::Markdown::Discount', $VERSION);
 sub new {
     my $class = shift;
     my %args = @_ == 1 ? %{$_[0]} : @_;
-    $class->_new($args{html5});
+    $class->_new($args{html5} || 0);
 }
 
 sub markdown {

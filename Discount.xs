@@ -8,7 +8,7 @@
 #include <mkdio.h>
 
 typedef struct tmdd_obj {
-    bool html5;
+    int html5;
 } tmdd_obj;
 
 typedef tmdd_obj *Text__Markdown__Discount;
@@ -55,10 +55,10 @@ TextMarkdown__markdown(self, sv_str, flags)
         int szhtml;
         MMIOT *doc;
     CODE:
-        if ( self->html5 ) {
-            mkd_with_html5_tags();
-        } else {
+        if ( self->html5 == 0 ) {
             mkd_deallocate_tags();
+        } else {
+            mkd_with_html5_tags();
         }
 
         if ( (doc = mkd_string(text, strlen(text), flags)) == 0 ) {
@@ -89,7 +89,7 @@ TextMarkdown__markdown(self, sv_str, flags)
 Text::Markdown::Discount
 TextMarkdown__new(clazz, html5)
     char *clazz
-    bool html5
+    int html5
     PREINIT:
         Text__Markdown__Discount self;
     CODE:
