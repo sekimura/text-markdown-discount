@@ -94,10 +94,17 @@ I<markdown> is exported by default.
 
 =item C<Text::Markdown::Discount::with_html5_tags()>
 
-Enabling html5 elements handling.
+This function enables html5 block-level elements support.
+C<< Text::Markdown::Discount::markdown() >> will handle these html5 tags as
+block elements: aside, footer, header, hgroup, nav, section, article.
 
-Once calling it, following B<ALL> C<< Text::Markdown::Discount::markdown() >>
-calls are affected with html5 enabled in same Perl process and there is no way to disable it.
+B<NOTE>: There is no way to disable/re-enable this feature in one process right now.
+
+  use Text::Markdown::Discount;
+  Text::Markdown::Discount::with_html5_tags();
+  my $html = markdown('<article>content</article>');
+  #
+  # In $html, <article> tag won't be wrapped with <p> tag
 
 =back
 
@@ -159,7 +166,7 @@ Masayoshi Sekimura, E<lt>sekimura@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2009 by Masayoshi Sekimura
+Copyright (C) 2013 by Masayoshi Sekimura
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.0 or,
