@@ -5,7 +5,7 @@ Text::Markdown::Discount - Perl extension interface for "Discount", an
 implementation of John Gruber's "markdown"[^1] in C developed by 
 David Loren Parsons[^2].
 
-[^1] <http://daringfire-ball.net/projects/markdown/> 
+[^1] <http://daringfireball.net/projects/markdown/> 
 [^2] <http://www.pell.portland.or.us/~orc>
 
 INSTALLATION
