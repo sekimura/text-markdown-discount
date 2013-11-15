@@ -1,5 +1,10 @@
 Revision history for Perl extension Text::Markdown::XS.
 
+0.11 Fri Nov 15 10:26:19 PST 2013
+	- upgraded Discount to 2.1.7, which fixed an issue generating <em> tags
+	  from _<nonascii>_ and *<nonascii>*
+	- doc typo fix (by @harupong)
+
 0.10 Fri Aug  9 12:49:59 PDT 2013
 	-  added with_html5_tags() to enable html5 block elements support (by @Songmu)
 
