@@ -17,24 +17,31 @@ BOOT:
     newCONSTSUB(stash, "MKD_NOIMAGE", newSViv(MKD_NOIMAGE));
     newCONSTSUB(stash, "MKD_NOPANTS", newSViv(MKD_NOPANTS));
     newCONSTSUB(stash, "MKD_NOHTML", newSViv(MKD_NOHTML));
-    newCONSTSUB(stash, "MKD_STRICT", newSViv(MKD_STRICT));
     newCONSTSUB(stash, "MKD_TAGTEXT", newSViv(MKD_TAGTEXT));
     newCONSTSUB(stash, "MKD_NO_EXT", newSViv(MKD_NO_EXT));
+    newCONSTSUB(stash, "MKD_EXPLICITLIST", newSViv(MKD_EXPLICITLIST));
     newCONSTSUB(stash, "MKD_CDATA", newSViv(MKD_CDATA));
     newCONSTSUB(stash, "MKD_NOSUPERSCRIPT", newSViv(MKD_NOSUPERSCRIPT));
     newCONSTSUB(stash, "MKD_NORELAXED", newSViv(MKD_NORELAXED));
     newCONSTSUB(stash, "MKD_NOTABLES", newSViv(MKD_NOTABLES));
     newCONSTSUB(stash, "MKD_NOSTRIKETHROUGH", newSViv(MKD_NOSTRIKETHROUGH));
-    newCONSTSUB(stash, "MKD_TOC", newSViv(MKD_TOC));
     newCONSTSUB(stash, "MKD_1_COMPAT", newSViv(MKD_1_COMPAT));
+    newCONSTSUB(stash, "MKD_TOC", newSViv(MKD_TOC));
     newCONSTSUB(stash, "MKD_AUTOLINK", newSViv(MKD_AUTOLINK));
-    newCONSTSUB(stash, "MKD_SAFELINK", newSViv(MKD_SAFELINK));
     newCONSTSUB(stash, "MKD_NOHEADER", newSViv(MKD_NOHEADER));
     newCONSTSUB(stash, "MKD_TABSTOP", newSViv(MKD_TABSTOP));
+    newCONSTSUB(stash, "MKD_SAFELINK", newSViv(MKD_SAFELINK));
     newCONSTSUB(stash, "MKD_NODIVQUOTE", newSViv(MKD_NODIVQUOTE));
     newCONSTSUB(stash, "MKD_NOALPHALIST", newSViv(MKD_NOALPHALIST));
-    newCONSTSUB(stash, "MKD_NODLIST", newSViv(MKD_NODLIST));
     newCONSTSUB(stash, "MKD_EXTRA_FOOTNOTE", newSViv(MKD_EXTRA_FOOTNOTE));
+    newCONSTSUB(stash, "MKD_NOSTYLE", newSViv(MKD_NOSTYLE));
+    newCONSTSUB(stash, "MKD_NODLDISCOUNT", newSViv(MKD_NODLDISCOUNT));
+    newCONSTSUB(stash, "MKD_DLEXTRA", newSViv(MKD_DLEXTRA));
+    newCONSTSUB(stash, "MKD_FENCEDCODE", newSViv(MKD_FENCEDCODE));
+    newCONSTSUB(stash, "MKD_IDANCHOR", newSViv(MKD_IDANCHOR));
+    newCONSTSUB(stash, "MKD_GITHUBTAGS", newSViv(MKD_GITHUBTAGS));
+    newCONSTSUB(stash, "MKD_URLENCODEDANCHOR", newSViv(MKD_URLENCODEDANCHOR));
+    newCONSTSUB(stash, "MKD_LATEX", newSViv(MKD_LATEX));
 
 SV *
 TextMarkdown__markdown(sv_str, flags)
