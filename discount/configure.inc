@@ -1018,13 +1018,14 @@ AC_SCALAR_TYPES () {
 	TLOG " (using standard types ${__i:+in <$__i>})"
 	return 0
     fi
-	
+
     # and if that fails do a brute-force program that does sizeof()ication
     # to figure things out
     #
     cat > ngc$$.c << EOF
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int pound_define = 1;
 
@@ -1225,6 +1226,7 @@ AC_CHECK_FLOCK() {
 #include <sys/file.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 int main()
 {
