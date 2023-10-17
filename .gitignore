@@ -1,4 +1,5 @@
-Makefile
+/Makefile
+/discount-*/Makefile
 Makefile.old
 blib
 Discount.bs
