@@ -101,7 +101,7 @@ CC = $Config{cc}
 CFLAGS = $Config{ccflags} -fPIC
 OPTIMIZE = $Config{optimize}
 AR = ar
-RANIB = ranlib
+RANLIB = ranlib
 EOF
     $fh->close or die "cannot close '$config_vars_file': $!";
 }
