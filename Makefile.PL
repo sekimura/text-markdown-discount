@@ -3,6 +3,7 @@ use warnings;
 
 use ExtUtils::MakeMaker;
 use File::Spec;
+use Config;
 
 my $extdir = 'discount-2.2.7';
 my $myextlib = File::Spec->catfile($extdir, 'libmarkdown.a');
@@ -67,13 +68,72 @@ xmlpage.o
 
                   ));
 
-
-
 sub MY::postamble {
+    if ($^O eq 'MSWin32') {
+        return mingw64_postamble();
+    } else {
+        return sprintf('
+$(MYEXTLIB):
+	%s
+', qq{( cd $extdir; CC='cc -fPIC' sh configure.sh --with-fenced-code --with-dl=both; \$(MAKE) )\n});
+    }
+}
+
+# This does not work for ActiveState Perl. But they have their own binary
+# package of Text::Markdown::Discount.
+sub mingw64_postamble {
+    mingw64_config_vars();
+    mingw64_copy_files();
+    mingw64_expand_mkdio_h();
+
     return sprintf('
 $(MYEXTLIB):
 	%s
-', qq{( cd $extdir; CC='cc -fPIC' sh configure.sh --with-fenced-code --with-dl=both; make )\n});
+', qq{cd $extdir && \$(MAKE)\n});
+}
+
+sub mingw64_config_vars {
+    my $config_vars_file = File::Spec->catfile($extdir, 'mingw64-config-vars.inc');
+    open my $fh, '>', $config_vars_file
+        or die "cannot create '$config_vars_file: $!";
+    $fh->print(<<"EOF") or die "cannot write '$config_vars_file': $!";
+CC = $Config{cc}
+CFLAGS = $Config{ccflags} -fPIC
+OPTIMIZE = $Config{optimize}
+AR = ar
+RANLIB = ranlib
+EOF
+    $fh->close or die "cannot close '$config_vars_file': $!";
+}
+
+sub mingw64_copy_files() {
+    require File::Copy;
+    my $mingw64_dir = 'mingw64';
+    for my $file ('Makefile', 'config.h', 'blocktags', 'version.c') {
+        my $src = File::Spec->catfile($mingw64_dir, $file);
+        my $dest = File::Spec->catfile($extdir, $file);
+        File::Copy::copy($src, $dest)
+            or die "Cannot copy '$src' to '$dest': $!";
+    }
+
+}
+
+sub mingw64_expand_mkdio_h {
+    my $mkdio_h_in = File::Spec->catfile($extdir, 'mkdio.h.in');
+    open my $in, '<', $mkdio_h_in
+        or die "cannot open '$mkdio_h_in: $!";
+    my $code = join '', <$in>;
+    my %replace = (
+        SCALAR_HEADER_INCLUDE => '#include <inttypes.h>',
+        DWORD => 'uint32_t',
+    );
+    my $keys = join '|', keys %replace;
+    $code =~ s/@($keys)@/$replace{$1}/g;
+    my $mkdio_h = File::Spec->catfile($extdir, 'mkdio.h');
+    open my $out, '>', $mkdio_h
+        or die "cannot open '$mkdio_h' for writing: $!";
+    $out->print($code) or die "cannot write '$mkdio_h': $!";
+    $out->close or die "cannot close '$mkdio_h': $!";
 }
 
 WriteMakefile(
