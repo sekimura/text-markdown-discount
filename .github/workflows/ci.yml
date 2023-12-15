@@ -57,7 +57,7 @@ jobs:
          cat  /Users/runner/.cpanm/work/*/build.log
 
     - name: Run tests
-      if:  ! ${{startsWith( matrix.runner, 'windows-' )}}
+      if:  ! startsWith( matrix.runner, 'windows-')
       env:
         AUTHOR_TESTING: 1
         RELEASE_TESTING: 1
@@ -68,7 +68,7 @@ jobs:
 
     # FIXME! Is there a smarter way to set the make executable image name?
     - name: Run tests (Windows)
-      if:  ${{startsWith( matrix.runner, 'windows-' )}}
+      if:  startsWith( matrix.runner, 'windows-' )
       env:
         AUTHOR_TESTING: 1
         RELEASE_TESTING: 1
