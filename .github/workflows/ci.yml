@@ -56,12 +56,15 @@ jobs:
       run: |
          cat  /Users/runner/.cpanm/work/*/build.log
 
-    - name: Show tools directory
-      if:  ${{startsWith(matrix.runner, 'windows-')}}
-      run: |
-         ls C:\hostedtoolcache\windows\strawberry-perl\5.30.3\x64\c\bin
+    - name: Set image name for make
+      env:
+        MAKE: gmake
+      else:
+      env:
+        MAKE: make
 
     - name: Run tests
+      if:  !${{startsWith:( matrix.runner, 'windows-' )}}
       env:
         AUTHOR_TESTING: 1
         RELEASE_TESTING: 1
@@ -70,4 +73,15 @@ jobs:
         make
         make test
 
+    # FIXME! Is there a smarter way to set the make executable image name?
+    - name: Run tests (Windows)
+      if:  ! ${{startsWith:( matrix.runner, 'windows-' )}}
+      env:
+        AUTHOR_TESTING: 1
+        RELEASE_TESTING: 1
+        run: |
+          perl Makefile.PL
+          gmake
+          gmake test
+      
 
