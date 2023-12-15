@@ -62,6 +62,7 @@ jobs:
         RELEASE_TESTING: 1
       run: |
         perl Makefile.PL
+        $env:path -split ";"
         make
         make test
 
