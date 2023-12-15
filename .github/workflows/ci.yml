@@ -56,13 +56,17 @@ jobs:
       run: |
          cat  /Users/runner/.cpanm/work/*/build.log
 
+    - name: Show tools directory
+      if:  ${{startsWith(matrix.runner, 'windows-')}}
+      run: |
+         ls C:\hostedtoolcache\windows\strawberry-perl\5.30.3\x64\c\bin
+
     - name: Run tests
       env:
         AUTHOR_TESTING: 1
         RELEASE_TESTING: 1
       run: |
         perl Makefile.PL
-        $env:path -split ";"
         make
         make test
 
