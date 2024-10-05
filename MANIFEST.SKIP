@@ -70,3 +70,5 @@
 ^discount-2.2.7d/markdown.o
 ^discount-2.2.7d/librarian.sh
 ^discount-2.2.7d/docheader.o
+^discount-2.2.7d/test.md
+^discount-2.2.7d/tests/
