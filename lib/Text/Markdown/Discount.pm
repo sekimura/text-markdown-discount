@@ -49,7 +49,7 @@ sub markdown {
         }
     }
     if (not defined $flags) {
-        $flags = MKD_NOHEADER()|MKD_NOPANTS();
+        $flags = MKD_NOHEADER()|MKD_NOPANTS()|MKD_DLEXTRA()|MKD_FENCEDCODE();
     }
     return _markdown($text, $flags);
 }
