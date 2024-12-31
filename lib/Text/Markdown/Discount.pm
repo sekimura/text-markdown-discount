@@ -25,7 +25,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 require XSLoader;
 XSLoader::load('Text::Markdown::Discount', $VERSION);

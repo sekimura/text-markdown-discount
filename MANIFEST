@@ -136,6 +136,7 @@ t/10.empty_or_all_newlines_input.t
 t/11.flags.t
 t/12.utf8.t
 t/13.html5.t
+t/14.fenced.t
 xt/index.text
 xt/MarkdownTest_1.0.3.t
 xt/MarkdownTest_1.0.3/MarkdownTest.pl
